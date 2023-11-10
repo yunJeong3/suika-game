@@ -7,7 +7,7 @@ const render = Render.create({
   element: document.body,
   options: {
     wireframes: false,
-    background: "#F7F4C8",
+    background: "white",
     width: 620,
     height: 850,
   }
@@ -86,7 +86,7 @@ window.onkeydown = (event) => {
     case "KeyA":
       if(interval) return;
       interval = setInterval(() => {
-        if(currentBody.position.x - currentFruit.radius > 35)
+        if(currentBody.position.x - currentFruit.radius > 32)
           // currentBody(현재 선택된 과일)의 x좌표에서 왼쪽으로 이동해야 하기 때문에 -1
           Body.setPosition(currentBody, {
             x: currentBody.position.x - 1,
