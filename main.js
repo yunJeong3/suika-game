@@ -1,10 +1,12 @@
 import { Bodies, Body, Engine, Events, Render, Runner, World } from "matter-js";
 import { FRUITS } from "./fruits";
 
+const elemtentArea = document.getElementById('game-box');
+
 const engine = Engine.create();
 const render = Render.create({
   engine,
-  element: document.body,
+  element: elemtentArea,
   options: {
     wireframes: false,
     background: "white",
@@ -35,7 +37,7 @@ const topLine = Bodies.rectangle(310, 150, 620, 2, {
   isStatic: true,
   isSensor: true,
   render: { fillStyle: "#E6B143" }
-})
+});
 
 World.add(world, [leftWall, rightWall, ground, topLine]);
 
@@ -74,8 +76,13 @@ function addFruit() {
   World.add(world, body);
 }
 
+// *** world를 초기화하는 함수 ***
+function resetWorld() {
+  console.log('실행됨');
+}
+
 // 키보드를 감지하기 위한 javascript 함수, 만약 키가 눌리면 event 실행
-// w: ↑  s: ↓  a: ←  d: →
+// s: 과일 떨어트리기  a: 좌측이동  d: 우측이동
 window.onkeydown = (event) => {
   // disableAction이 true면 switch문이 실행되지 않게 선언
   if(disableAction) {
@@ -165,11 +172,17 @@ Events.on(engine, "collisionStart", (event) => {
 
       World.add(world, newBody);
 
+      // 맵 초기화 기능 테스트
+      if(newBody.index === 4) {
+        // resetWorld();
+      }
+
       // 수박일 때에는 최종 점수 +1
       if(newBody.index === FRUITS.length-1) {
         suika_num++;
         console.log(suika_num);
       }
+      // 수박이 2개일 때 초기화
       if(suika_num === 2) {
         alert("수박 두개로 승리~");
       }
